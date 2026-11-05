@@ -31,7 +31,8 @@ metrics, and the models are demonstrated through an interactive Streamlit web ap
 ## c. GitHub Repository Link
 https://github.com/jyotishachaurasia1/Online-Shoppers
 
-**Live Streamlit App:** https://jyotisha-online-shoppers.streamlit.app/
+## Live Streamlit App:
+https://jyotisha-online-shoppers.streamlit.app/
 
 ## d. Models Used and Evaluation Metrics
 Models implemented: Logistic Regression, Decision Tree Classifier, K-Nearest Neighbors,
