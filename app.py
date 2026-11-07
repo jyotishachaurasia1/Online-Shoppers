@@ -75,7 +75,7 @@ for col, (name, value) in zip(metric_cols, metrics.items()):
     col.metric(name, f"{value:.4f}")
 
 
-    left, right = st.columns(2)
+left, right = st.columns(2)
 
 with left:
     st.markdown("**Confusion Matrix**")
@@ -94,7 +94,7 @@ with right:
                                    target_names=["No Purchase", "Purchase"])
     st.dataframe(pd.DataFrame(report).T.round(4))
 
-    st.subheader("🏆 Comparison of All Models on Uploaded Data")
+st.subheader("🏆 Comparison of All Models on Uploaded Data")
 all_rows = {}
 for name, path in MODEL_FILES.items():
     m = load_model(path)

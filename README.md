@@ -8,7 +8,7 @@ Five classification models are implemented on the same dataset and compared usin
 metrics, and the models are demonstrated through an interactive Streamlit web app.
 
 ## b. Dataset Description
-- **Source:** UCI Machine Learning Repository – Online Shoppers Purchasing Intention Dataset
+- **Source:** UCI Machine Learning Repository – Online Shoppers Purchasing Intention Dataset (https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset)
 - **Instances:** 12,330 sessions (12,205 after removing 125 duplicate rows)
 - **Features:** 17 input features (10 numeric, 7 categorical/binary)
 - **Target:** `Revenue` (1 = purchase, 0 = no purchase)
@@ -54,10 +54,10 @@ would already get 84.4% accuracy. So MCC and F1 are used as the main comparison 
 | ML Model Name | Observation about model performance |
 |---|---|
 | Logistic Regression | High AUC (0.8954) and precision (0.7347) but low recall (0.3770): it found only 144 of 382 buyers. Its linear decision boundary is too simple for this data, and the class imbalance pushes it towards predicting "no purchase". |
-| Decision Tree | Best model, with the highest Accuracy (0.9009), AUC (0.9185), Recall (0.6204), F1 (0.6620) and MCC (0.6061). It learns non-linear if-then rules (e.g. high PageValues with low ExitRates), catching 93 more buyers than Logistic Regression. max_depth=6 helped avoid overfitting. |
+| Decision Tree | Best model, with the highest Accuracy (0.9009), AUC (0.9185), F1 (0.6620) and MCC (0.6061), and a Recall of 0.6204. It learns non-linear if-then rules (e.g. high PageValues with low ExitRates), catching 93 more buyers than Logistic Regression. |
 | KNN | Weakest AUC (0.8063) among the reasonable models, with low recall (0.3770). Most neighbours of any visitor are non-buyers, so the vote favours "no purchase", and the many one-hot columns make distance less meaningful. |
-| Naive Bayes | Worst model (Accuracy 0.2536, MCC 0.1169). It predicted "purchase" for almost every session (Recall 0.9791, Precision 0.1709). Its assumptions of independent, normally distributed features fail here, as many features are correlated and highly skewed. |
-| Support Vector Machine | Second best (MCC 0.5558, F1 0.6016) with the highest precision (0.7376). The RBF kernel captures non-linear patterns better than Logistic Regression, but it still misses about half of the buyers and is the slowest model to train. |
+| Naive Bayes | Worst model (Accuracy 0.2536, MCC 0.1169). It predicted "purchase" for almost every session (Recall 0.9791, Precision 0.1709). Its assumptions of independent, normally distributed features fail here, as many features are correlated and highly skewed. The one-hot columns are also a poor fit for GaussianNB: they contain only 0s and 1s, and for rare categories the variance within a class is close to zero, so a single 1 produces extreme probabilities that dominate the prediction. |
+| Support Vector Machine | Second best (MCC 0.5558, F1 0.6016) with the highest precision (0.7376). The RBF kernel captures non-linear patterns better than Logistic Regression, but it still misses about half of the buyers. |
 | **Overall Winner** | **Decision Tree**: it achieved the highest MCC and F1, the fairest metrics for imbalanced data, and gives the best balance between catching buyers and avoiding false alarms. |
 
 ## Streamlit App Features
@@ -76,8 +76,11 @@ would already get 84.4% accuracy. So MCC and F1 are used as the main comparison 
 ├── model/                   # Saved trained pipelines (.pkl) for all 5 models
 ├── test_data.csv            # Test data (20% split) with target column
 ├── requirements.txt         # Python dependencies
+├── online_shoppers_intention.csv  # Original dataset
 └── README.md
 ```
+
+
 
 ## How to Run Locally
 ```
